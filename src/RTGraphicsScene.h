@@ -10,6 +10,7 @@ class QMouseEvent;
 class QPainter;
 
 class GraphicsView;
+class Scene;
 
 static const unsigned int SCENE_HEIGHT  = 600;
 static const unsigned int SCENE_WIDTH   = 800;
@@ -19,6 +20,7 @@ class RTGraphicsScene : public QGraphicsScene
     Q_OBJECT
 public:
     explicit RTGraphicsScene(GraphicsView *pGraphicsView, QObject *parent = 0);
+    ~RTGraphicsScene();
 
     bool            isFullscreen() { return bFullscreen; }
 
@@ -48,6 +50,8 @@ private:
 
     void            draw();
     void            initialize();
+
+    Scene           *m_pScene;
 
     void            *buffer;
 

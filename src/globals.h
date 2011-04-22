@@ -114,7 +114,7 @@ struct VECTOR3
 
     void Print()
     {
-        cout << "Vec3 (" << x << ", " << y << ", " << z << "" << endl;
+        cout << "Vec3 (" << x << ", " << y << ", " << z << ")" << endl;
     }
 
     void Set(float fX, float fY, float fZ)
@@ -169,7 +169,8 @@ struct RAY
     VECTOR3 ValueWhenT(float fT)
     {
         VECTOR3 val;
-        val.Set(vStart.x + fT * vDirection.x, vStart.y + fT * vDirection.y, vStart.z + fT * vDirection.z); return val;
+        val.Set(vStart.x + fT * vDirection.x, vStart.y + fT * vDirection.y, vStart.z + fT * vDirection.z);
+        return val;
     }
 
     int	dwGeneration;

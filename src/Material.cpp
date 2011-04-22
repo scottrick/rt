@@ -21,19 +21,18 @@ void Material::Init()
 void Material::Print()
 {
     cout << "Material 0x" << hex << (unsigned int)this << dec << endl;
-//    //printf("DiffuseColor   = (%u, %u, %u, %u)\n", GetR(&m_DiffuseColor), GetG(&m_DiffuseColor), GetB(&m_DiffuseColor), GetA(&m_DiffuseColor));
-//    //printf("SpecularColor  = (%u, %u, %u, %u)\n", GetR(&m_SpecularColor), GetG(&m_SpecularColor), GetB(&m_SpecularColor), GetA(&m_SpecularColor));
-//    printf("DiffuseColor   = ");
-//    m_DiffuseColor.Print();
-//    printf("SpecularColor  = ");
-//    m_SpecularColor.Print();
-//    printf("AmbientCoef    = %f\n", m_fAmbientCoef);
-//    printf("DiffuseCoef    = %f\n", m_fDiffuseCoef);
-//    printf("SpeculafCoef   = %f\n", m_fSpecularCoef);
-//    printf("SpecularExp    = %f\n", m_fSpecularExp);
-//    printf("Transparency   = %f\n", m_fTransparency);
-//    printf("RefractEnv     = %f\n", m_fRefractIndexEnv);
-//    printf("RefractObject  = %f\n", m_fRefractIndexObject);
+    cout << " Diffuse ";
+    m_DiffuseColor.Print();
+    cout << " Specular ";
+    m_SpecularColor.Print();
+
+    cout << " AmbientCoef " << m_fAmbientCoef << endl;
+    cout << " DiffuseCoef " << m_fDiffuseCoef << endl;
+    cout << " SpeculrCoef " << m_fSpecularCoef << endl;
+    cout << " SpecularExp " << m_fSpecularExp << endl;
+    cout << " TransparenC " << m_fTransparency << endl;
+    cout << " RefractEnv  " << m_fRefractIndexEnv << endl;
+    cout << " RefractObj  " << m_fRefractIndexObject << endl;
 }
 
 void Material::Refresh(int DeltaTime)

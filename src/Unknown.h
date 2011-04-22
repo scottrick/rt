@@ -4,13 +4,13 @@
 class Unknown
 {
 public:
-	Unknown()					{};
-	~Unknown()					{};
+    Unknown()           {};
+    ~Unknown()          {};
 
-	virtual void				Print()					= 0;
+    virtual void        Print()                 = 0;
 
-	virtual void				Refresh(int DeltaTime)	= 0;
-	
+    virtual void        Refresh(int DeltaTime)  = 0;
+
 private:
 
 };

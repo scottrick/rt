@@ -15,17 +15,16 @@ void Eye::Init()
 void Eye::Print()
 {
     cout << "Eye 0x" << hex << (unsigned int)this << dec << endl;
-
-//    printf("Position       = ");
-//    m_v3Position.Print();
-//    printf("TopLeft        = ");
-//    m_v3TopLeft.Print();
-//    printf("TopRight       = ");
-//    m_v3TopRight.Print();
-//    printf("BottomLeft     = ");
-//    m_v3BottomLeft.Print();
-//    printf("BottomRight    = ");
-//    m_v3BottomRight.Print();
+    cout << "  Position ";
+    m_v3Position.Print();
+    cout << "  TopLeft ";
+    m_v3TopLeft.Print();
+    cout << "  TopRight ";
+    m_v3TopRight.Print();
+    cout << "  BottomLeft ";
+    m_v3BottomLeft.Print();
+    cout << "  BottomRight ";
+    m_v3BottomRight.Print();
 }
 
 void Eye::Refresh(int DeltaTime)

@@ -23,11 +23,9 @@ float Light::Intersects(RAY *pRay)
 void Light::Print()
 {
     cout << "Light 0x" << hex << (unsigned int)this << dec << endl;
-
-//    printf("Center         = ");
-//    m_v3Center.Print();
-
-//    Object::Print();
+    cout << "  Center ";
+    m_v3Center.Print();
+    Object::Print();
 }
 
 void Light::Refresh(int DeltaTime)

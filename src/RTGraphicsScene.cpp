@@ -13,6 +13,7 @@
 
 #include "GraphicsView.h"
 #include "globals.h"
+#include "Scene.h"
 #include "glee/GLee.h"
 
 #include <iostream>
@@ -45,6 +46,15 @@ RTGraphicsScene::RTGraphicsScene(GraphicsView *pGraphicsView, QObject *parent) :
     }
 
     initialize();
+}
+
+RTGraphicsScene::~RTGraphicsScene()
+{
+    if (m_pScene)
+    {
+        delete m_pScene;
+        m_pScene = 0;
+    }
 }
 
 QWidget *RTGraphicsScene::createWidget(const QString &widgetTitle) const
@@ -135,6 +145,9 @@ void RTGraphicsScene::keyPressEvent(QKeyEvent *pKeyEvent)
 
 void RTGraphicsScene::initialize()
 {
+    m_pScene = new Scene("../Scenes/test.txt");
+    m_pScene->Print();
+
     bFullscreen = false;
 
     m_fpsCounter = 0;
