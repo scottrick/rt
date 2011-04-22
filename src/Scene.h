@@ -10,6 +10,9 @@
 #include <vector>
 using namespace std;
 
+/*
+    A Scene is a collection of objects, lights, and the eye point.
+ */
 class Scene : public Unknown
 {
 public:
@@ -17,7 +20,9 @@ public:
     ~Scene();
 
     void Add(const char *pFilename); //parse the given file and add its stuff to the scene
-    void Clear();
+    void Clear(); //remove everything from the scene!
+
+    Eye             GetEye() const              { return m_Eye; }
 
     virtual void    Print();
     virtual void    Refresh(int DeltaTime);

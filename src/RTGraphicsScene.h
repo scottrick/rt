@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QtGlobal>
 
+#include "globals.h"
+
 class QKeyEvent;
 class QLabel;
 class QMouseEvent;
@@ -12,8 +14,8 @@ class QPainter;
 class GraphicsView;
 class Scene;
 
-static const unsigned int SCENE_HEIGHT  = 600;
-static const unsigned int SCENE_WIDTH   = 800;
+static const int SCENE_HEIGHT  = 80;
+static const int SCENE_WIDTH   = 60;
 
 class RTGraphicsScene : public QGraphicsScene
 {
@@ -50,8 +52,11 @@ private:
 
     void            draw();
     void            initialize();
+    void            shootRays();
+    void            updateRays();
 
     Scene           *m_pScene;
+    RAY             m_Rays[SCENE_WIDTH][SCENE_HEIGHT];
 
     void            *buffer;
 

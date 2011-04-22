@@ -7,33 +7,29 @@
 class Eye : public Unknown
 {
 public:
-	Eye()				{ Init(); }
-	~Eye()				{}
+    Eye()           { Init(); }
+    ~Eye()          {}
 
-	VECTOR3				*GetBottomLeft()					{ return &m_v3BottomLeft; }
-	VECTOR3				*GetBottomRight()					{ return &m_v3BottomRight; }
-	VECTOR3				*GetPosition()						{ return &m_v3Position; }
-	VECTOR3				*GetTopLeft()						{ return &m_v3TopLeft; }
-	VECTOR3				*GetTopRight()						{ return &m_v3TopRight; }
+    VECTOR3         *GetDirection()                 { return &m_vDirection; }
+    VECTOR3         *GetPosition()                  { return &m_vPosition; }
 
-	virtual void		Print();
-	
-	virtual void		Refresh(int DeltaTime);
+    virtual void    Print();
 
-	void				SetBottomLeft(VECTOR3 *pVec)		{ m_v3BottomLeft.Set(pVec); }
-	void				SetBottomRight(VECTOR3 *pVec)		{ m_v3BottomRight.Set(pVec); }
-	void				SetPosition(VECTOR3 *pVec)			{ m_v3Position.Set(pVec); }
-	void				SetTopLeft(VECTOR3 *pVec)			{ m_v3TopLeft.Set(pVec); }
-	void				SetTopRight(VECTOR3 *pVec)			{ m_v3TopRight.Set(pVec); }
+    virtual void    Refresh(int DeltaTime);
+
+    void            SetAspectRatio(float newRatio)  { m_fAspectRatio = newRatio; }
+    void            SetDirection(VECTOR3 *pVec)     { m_vDirection.Set(pVec); }
+    void            SetFoV(float newFoV)            { m_fFoV = newFoV; }
+    void            SetPosition(VECTOR3 *pVec)      { m_vPosition.Set(pVec); }
 
 private:
-	void				Init();
+    void            Init();
 
-	VECTOR3				m_v3BottomLeft;
-	VECTOR3				m_v3BottomRight;
-	VECTOR3				m_v3Position;
-	VECTOR3				m_v3TopLeft;
-	VECTOR3				m_v3TopRight;
+    VECTOR3         m_vDirection;
+    VECTOR3         m_vPosition;
+
+    float           m_fAspectRatio;
+    float           m_fFoV; //in degrees
 };
 
 #endif

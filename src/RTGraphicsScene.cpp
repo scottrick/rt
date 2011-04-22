@@ -72,6 +72,9 @@ QWidget *RTGraphicsScene::createWidget(const QString &widgetTitle) const
 //Do the raytracing and draw it in the widget!
 void RTGraphicsScene::draw()
 {
+//    updateRays();
+//    shootRays();
+
     glDrawPixels(SCENE_WIDTH, SCENE_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 }
 
@@ -155,12 +158,12 @@ void RTGraphicsScene::initialize()
 
     fTime = 0.0f;
 
-    bPaused             = true;
+    bPaused = true;
 
     cout << "initalizing buffer..." << endl;
     buffer = malloc(sizeof(GLubyte) * 3 * SCENE_HEIGHT * SCENE_WIDTH);
 
-    unsigned int offset = 0;
+    int offset = 0;
 
     for (int x = 0; x < SCENE_WIDTH; ++x)
     {
@@ -170,16 +173,16 @@ void RTGraphicsScene::initialize()
 
             if (x == y || abs(x - y) == 1)
             {
-                *((GLubyte *)(buffer + offset + 0)) = 255;
-                *((GLubyte *)(buffer + offset + 1)) = 255;
-                *((GLubyte *)(buffer + offset + 2)) = 255;
+                *((GLubyte *)((GLubyte *)buffer + offset + 0)) = 255;
+                *((GLubyte *)((GLubyte *)buffer + offset + 1)) = 255;
+                *((GLubyte *)((GLubyte *)buffer + offset + 2)) = 255;
             }
             else
             {
-                *((GLubyte *)(buffer + offset + 0)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
-                *((GLubyte *)(buffer + offset + 1)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
-                *((GLubyte *)(buffer + offset + 2)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
-    //            *((GLubyte *)(buffer + offset + 2)) = 255;
+                *((GLubyte *)((GLubyte *)buffer + offset + 0)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
+                *((GLubyte *)((GLubyte *)buffer + offset + 1)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
+//                *((GLubyte *)((GLubyte *)buffer + offset + 2)) = (GLubyte)GenerateRandomUnsignedInt(0, 255);
+                *((GLubyte *)((GLubyte *)buffer + offset + 2)) = 255;
             }
         }
     }
@@ -225,4 +228,45 @@ void RTGraphicsScene::refresh()
         m_pFpsLabel->setText(num + tr(" fps"));
         m_fpsCounter = 0;
     }
+}
+
+void RTGraphicsScene::shootRays()
+{
+
+}
+
+void RTGraphicsScene::updateRays()
+{
+//    //for every pixel on the screen, we need to setup the appropriate ray based on the current eye!
+//    Eye eye = m_pScene->GetEye();
+
+//    float xInc = (eye.GetBottomRight()->x - eye.GetBottomLeft()->x) / (float)SCENE_WIDTH;
+//    float yInc = (eye.GetTopRight()->y - eye.GetBottomRight()->y) / (float)SCENE_HEIGHT;
+//    float z = eye.GetTopLeft()->z;
+
+//    VECTOR3 vDestination;
+//    VECTOR3 vDir;
+
+//    for (int x = 0; x < SCENE_WIDTH; ++x)
+//    {
+//        for (int y = 0; y < SCENE_HEIGHT; ++y)
+//        {
+//            //in opengl, y=0 is on the bottom of the screen, remember!
+//            m_Rays[x][y].vStart.Set(eye.GetPosition());
+
+//            vDestination.Set(x * xInc, y * yInc, z);
+
+//            vDir = vDestination - *(eye.GetPosition());
+
+//            m_Rays[x][y].vDirection.Set(&vDir);
+
+//            cout << "UPDATE RAYS  (" << x << ", " << y << ")" << endl;
+//            cout << "Start" << endl;
+//            m_Rays[x][y].vStart.Print();
+//            cout << "End" << endl;
+//            vDestination.Print();
+//            cout << "Dir" << endl;
+//            m_Rays[x][y].vDirection.Print();
+//        }
+//    }
 }

@@ -88,6 +88,24 @@ struct VECTOR3
     float y;
     float z;
 
+    VECTOR3 &operator +(const VECTOR3 &vec)
+    {
+        VECTOR3 result = *this;
+        result.x += vec.x;
+        result.y += vec.y;
+        result.z += vec.z;
+        return result;
+    }
+
+    VECTOR3 &operator -(const VECTOR3 &vec)
+    {
+        VECTOR3 result = *this;
+        result.x -= vec.x;
+        result.y -= vec.y;
+        result.z -= vec.z;
+        return result;
+    }
+
     float DotProduct(VECTOR3 *pVec)
     {
         return x * pVec->x + y * pVec->y + z * pVec->z;

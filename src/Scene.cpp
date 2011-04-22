@@ -165,8 +165,8 @@ void Scene::Add(const char *pFilename)
         if (sNext == "sphere") {
             inStream >> sNext >> sNext;
             sNext = sNext.substr(1, sNext.size() - 1);
-            fX = (float)atof(sNext.c_str());
 
+            fX = (float)atof(sNext.c_str());
             inStream >> sNext;
             fY = (float)atof(sNext.c_str());
             inStream >> sNext;
@@ -183,53 +183,9 @@ void Scene::Add(const char *pFilename)
             m_Objects.push_back(pSphere);
         }
 
-        if (sNext == "image") {
-            //get top left
-            inStream >> sNext >> sNext;
-            sNext = sNext.substr(1, sNext.size() - 1);
-            fX = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fY = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fZ = (float)atof(sNext.c_str());
-            vTemp.Set(fX, fY, fZ);
-            m_Eye.SetTopLeft(&vTemp);
-
-            //get top right
-            inStream >> sNext;
-            sNext = sNext.substr(1, sNext.size() - 1);
-            fX = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fY = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fZ = (float)atof(sNext.c_str());
-            vTemp.Set(fX, fY, fZ);
-            m_Eye.SetTopRight(&vTemp);
-
-            //get bottom right
-            inStream >> sNext;
-            sNext = sNext.substr(1, sNext.size() - 1);
-            fX = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fY = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fZ = (float)atof(sNext.c_str());
-            vTemp.Set(fX, fY, fZ);
-            m_Eye.SetBottomRight(&vTemp);
-
-            //get bottom left
-            inStream >> sNext;
-            sNext = sNext.substr(1, sNext.size() - 1);
-            fX = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fY = (float)atof(sNext.c_str());
-            inStream >> sNext;
-            fZ = (float)atof(sNext.c_str());
-            vTemp.Set(fX, fY, fZ);
-            m_Eye.SetBottomLeft(&vTemp);
-        }
-
-        if (sNext == "eye") {
+        if (sNext == "eye")
+        {
+            //read position
             inStream >> sNext >> sNext;
             fX = (float)atof(sNext.c_str());
             inStream >> sNext;
@@ -238,6 +194,30 @@ void Scene::Add(const char *pFilename)
             fZ = (float)atof(sNext.c_str());
             vTemp.Set(fX, fY, fZ);
             m_Eye.SetPosition(&vTemp);
+
+            //read dir
+            inStream >> sNext;
+            sNext = sNext.substr(1, sNext.size() - 1);
+
+            fX = (float)atof(sNext.c_str());
+            inStream >> sNext;
+            fY = (float)atof(sNext.c_str());
+            inStream >> sNext;
+            fZ = (float)atof(sNext.c_str());
+            vTemp.Set(fX, fY, fZ);
+            m_Eye.SetDirection(&vTemp);
+
+            //read FoV
+            inStream >> sNext;
+            fX = (float)atof(sNext.c_str());
+            m_Eye.SetFoV(fX);
+
+            //read AspectRatio
+            inStream >> sNext;
+            fX = (float)atof(sNext.c_str());
+            m_Eye.SetAspectRatio(fX);
+
+            m_Eye.Print();
         }
 
         if (sNext == "light") {
