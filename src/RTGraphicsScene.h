@@ -11,6 +11,9 @@ class QPainter;
 
 class GraphicsView;
 
+static const unsigned int SCENE_HEIGHT  = 600;
+static const unsigned int SCENE_WIDTH   = 800;
+
 class RTGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -45,6 +48,8 @@ private:
 
     void            draw();
     void            initialize();
+
+    void            *buffer;
 
 signals:
 

@@ -36,5 +36,4 @@ HEADERS  += globals.h \
     PixelUtility.h \
     Unknown.h \
     RTGraphicsScene.h \
-    glee/GLee.h \
     glee/GLee.h

@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     view.setScene(pRTScene);
 
     view.move(80, 60);
-    view.resize(800, 600);
+    view.resize(SCENE_WIDTH, SCENE_HEIGHT);
 
     if (view.isFullScreen())
     {
