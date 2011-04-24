@@ -72,8 +72,12 @@ QWidget *RTGraphicsScene::createWidget(const QString &widgetTitle) const
 //Do the raytracing and draw it in the widget!
 void RTGraphicsScene::draw()
 {
-//    updateRays();
-//    shootRays();
+    if (m_pScene->GetEye()->IsUpdateNeeded())
+    {
+        updateRays();
+        m_pScene->GetEye()->SetUpdateNeeded(false);
+    }
+    shootRays();
 
     glDrawPixels(SCENE_WIDTH, SCENE_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 }
@@ -232,41 +236,85 @@ void RTGraphicsScene::refresh()
 
 void RTGraphicsScene::shootRays()
 {
+    RAY *pRay = 0;
+    INTERSECTION *pIntersection = 0;
+    int offset = 0;
 
+    for (int x = 0; x < SCENE_WIDTH; ++x)
+    {
+        for (int y = 0; y < SCENE_HEIGHT; ++y)
+        {
+            offset = (y * SCENE_WIDTH * 3) + (x * 3);
+
+            pRay = &(m_Rays[x][y]);
+
+//            cout << "shooting ray (" << x << ", " << y << ")" << endl;
+
+            pIntersection = m_pScene->findIntersection(pRay);
+
+            if (pIntersection)
+            {
+                COLOR32 *pDiffuseColor = pIntersection->object->GetMaterial().GetDiffuseColor();
+
+//                cout << "found an intersection with 0x" << hex << (unsigned int)pIntersection->object << dec << endl;
+
+                *((GLubyte *)((GLubyte *)buffer + offset + 0)) = pDiffuseColor->r;
+                *((GLubyte *)((GLubyte *)buffer + offset + 1)) = pDiffuseColor->g;
+                *((GLubyte *)((GLubyte *)buffer + offset + 2)) = pDiffuseColor->b;
+
+                delete pIntersection; //clean up
+            }
+            else
+            {
+                *((GLubyte *)((GLubyte *)buffer + offset + 0)) = 0;
+                *((GLubyte *)((GLubyte *)buffer + offset + 1)) = 0;
+                *((GLubyte *)((GLubyte *)buffer + offset + 2)) = 0;
+            }
+        }
+    }
 }
 
 void RTGraphicsScene::updateRays()
 {
-//    //for every pixel on the screen, we need to setup the appropriate ray based on the current eye!
-//    Eye eye = m_pScene->GetEye();
+    //THE eye look dir and position aren't used for anything yet!
+    Eye *pEye = m_pScene->GetEye();
 
-//    float xInc = (eye.GetBottomRight()->x - eye.GetBottomLeft()->x) / (float)SCENE_WIDTH;
-//    float yInc = (eye.GetTopRight()->y - eye.GetBottomRight()->y) / (float)SCENE_HEIGHT;
-//    float z = eye.GetTopLeft()->z;
+    float xFoV = pEye->GetFoV() * 3.141592654f / 180.0f; //is in degrees, so we have to convert to radians!
 
-//    VECTOR3 vDestination;
-//    VECTOR3 vDir;
+    cout << "FoV X " << pEye->GetFoV() << endl;
+    cout << "FoV X rad " << xFoV << endl;
 
-//    for (int x = 0; x < SCENE_WIDTH; ++x)
-//    {
-//        for (int y = 0; y < SCENE_HEIGHT; ++y)
-//        {
-//            //in opengl, y=0 is on the bottom of the screen, remember!
-//            m_Rays[x][y].vStart.Set(eye.GetPosition());
+    float yFoV = ((float)SCENE_HEIGHT / (float)SCENE_WIDTH) * xFoV;
 
-//            vDestination.Set(x * xInc, y * yInc, z);
+    cout << "FoV Y rad " << yFoV << endl;
 
-//            vDir = vDestination - *(eye.GetPosition());
+    float tanXfov = tan(xFoV);
+    float tanYfov = tan(yFoV);
 
-//            m_Rays[x][y].vDirection.Set(&vDir);
+    float rayX;
+    float rayY;
 
-//            cout << "UPDATE RAYS  (" << x << ", " << y << ")" << endl;
-//            cout << "Start" << endl;
-//            m_Rays[x][y].vStart.Print();
-//            cout << "End" << endl;
-//            vDestination.Print();
-//            cout << "Dir" << endl;
-//            m_Rays[x][y].vDirection.Print();
-//        }
-//    }
+    for (int x = 0; x < SCENE_WIDTH; ++x)
+    {
+        rayX = (2.0f * x - SCENE_WIDTH) / SCENE_WIDTH * tanXfov;
+
+//        float theta = xFoV * (float)(x - (SCENE_WIDTH / 2)) / (float)SCENE_WIDTH;
+//        cout << "x Theta " << theta << endl;
+//        rayX = -1.0f / tan(theta);
+
+        for (int y = 0; y < SCENE_HEIGHT; ++y)
+        {
+            rayY = (2.0f * y - SCENE_HEIGHT) / SCENE_HEIGHT * tanYfov;
+
+//            theta = yFoV * ((float)y - ((float)SCENE_HEIGHT / 2.0f)) / (float)SCENE_HEIGHT;
+//            rayY = -1.0f / tan(theta);
+
+            //just assuming the eye is at the origin, and looking in the negative Z direction for now
+            m_Rays[x][y].vStart.Set(0.0f, 0.0f, 0.0f);
+            m_Rays[x][y].vDirection.Set(rayX, rayY, -1.0f);
+//            m_Rays[x][y].vDirection.Normalize();
+
+//            m_Rays[x][y].Print();
+        }
+    }
 }

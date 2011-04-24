@@ -49,9 +49,9 @@ void Scene::Add(const char *pFilename)
     float			fRadius;
     string			sNext;
     Material		currentMaterial;
-    COLOR			cTemp;
+    COLOR32			cTemp;
     VECTOR3			vTemp;
-    cTemp.a = 0.0f;
+    cTemp.a = 255;
 
     while (inStream >> sNext) {
         //cout << sNext << endl;
@@ -102,20 +102,20 @@ void Scene::Add(const char *pFilename)
         if (sNext == "material") {
             inStream >> sNext >> sNext;
             sNext = sNext.substr(1, sNext.size() - 1);
-            cTemp.r = (float)atof(sNext.c_str());
+            cTemp.r = (unsigned char)atoi(sNext.c_str());
             inStream >> sNext;
-            cTemp.g = (float)atof(sNext.c_str());
+            cTemp.g = (unsigned char)atoi(sNext.c_str());
             inStream >> sNext;
-            cTemp.b = (float)atof(sNext.c_str());
+            cTemp.b = (unsigned char)atoi(sNext.c_str());
             currentMaterial.SetDiffuseColor(&cTemp);
 
             inStream >> sNext;
             sNext = sNext.substr(1, sNext.size() - 1);
-            cTemp.r = (float)atof(sNext.c_str());
+            cTemp.r = (unsigned char)atoi(sNext.c_str());
             inStream >> sNext;
-            cTemp.g = (float)atof(sNext.c_str());
+            cTemp.g = (unsigned char)atoi(sNext.c_str());
             inStream >> sNext;
-            cTemp.b = (float)atof(sNext.c_str());
+            cTemp.b = (unsigned char)atoi(sNext.c_str());
             currentMaterial.SetSpecularColor(&cTemp);
 
             /*
@@ -212,11 +212,6 @@ void Scene::Add(const char *pFilename)
             fX = (float)atof(sNext.c_str());
             m_Eye.SetFoV(fX);
 
-            //read AspectRatio
-            inStream >> sNext;
-            fX = (float)atof(sNext.c_str());
-            m_Eye.SetAspectRatio(fX);
-
             m_Eye.Print();
         }
 
@@ -266,6 +261,39 @@ void Scene::Clear()
             m_Objects[i] = 0;
         }
     }
+}
+
+INTERSECTION *Scene::findIntersection(RAY *pRay)
+{
+    INTERSECTION *pBest = 0;
+
+    vector<Object *>::iterator iter = m_Objects.begin();
+
+    while (iter != m_Objects.end())
+    {
+        Object *obj = *iter;
+
+        float intersectTime = obj->Intersects(pRay);
+
+        if (intersectTime > 0.0f)
+        { //an intersection we care about occured!
+            if (!pBest || intersectTime < pBest->t)
+            { //we have no best intersection yet, or the new intersection happened first, so use the new one instead
+                if (!pBest)
+                {
+                    pBest = new INTERSECTION();
+                }
+
+                pBest->object = obj;
+                pBest->ray=  pRay;
+                pBest->t = intersectTime;
+            }
+        }
+
+        ++iter;
+    }
+
+    return pBest;
 }
 
 //COLOR Scene::FindColor(RAY *pRay)

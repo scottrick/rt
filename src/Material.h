@@ -7,45 +7,45 @@
 class Material : public Unknown
 {
 public:
-	Material()					{ Init(); }
-	~Material()					{}
+    Material()          { Init(); }
+    ~Material()         {}
 
-	float						GetAmbientCoef()					{ return m_fAmbientCoef; }
-	float						GetDiffuseCoef()					{ return m_fDiffuseCoef; }
-	COLOR						*GetDiffuseColor()					{ return &m_DiffuseColor; }
-	float						GetRefractIndexEnv()				{ return m_fRefractIndexEnv; }
-	float						GetRefractIndexObject()				{ return m_fRefractIndexObject; }
-	float						GetSpecularCoef()					{ return m_fSpecularCoef; }
-	COLOR						*GetSpecularColor()					{ return &m_SpecularColor; }
-	float						GetSpecularExp()					{ return m_fSpecularExp; }
-	float						GetTransparency()					{ return m_fTransparency; }
+    float               GetAmbientCoef()            { return m_fAmbientCoef; }
+    float               GetDiffuseCoef()            { return m_fDiffuseCoef; }
+    COLOR32             *GetDiffuseColor()          { return &m_DiffuseColor; }
+    float               GetRefractIndexEnv()        { return m_fRefractIndexEnv; }
+    float               GetRefractIndexObject()     { return m_fRefractIndexObject; }
+    float               GetSpecularCoef()           { return m_fSpecularCoef; }
+    COLOR32             *GetSpecularColor()         { return &m_SpecularColor; }
+    float               GetSpecularExp()            { return m_fSpecularExp; }
+    float               GetTransparency()           { return m_fTransparency; }
 
-	virtual void				Print();
-	virtual void				Refresh(int DeltaTime);
-	void						Set(Material *pMat);
-	void						SetAmbientCoef(float fVal)			{ m_fAmbientCoef = fVal; }
-	void						SetDiffuseCoef(float fVal)			{ m_fDiffuseCoef = fVal; }
-	void						SetDiffuseColor(COLOR *pColor)		{ m_DiffuseColor.Set(pColor); }
-	void						SetRefractIndexEnv(float fVal)		{ m_fRefractIndexEnv = fVal; }
-	void						SetRefractIndexObject(float fVal)	{ m_fRefractIndexObject = fVal; }
-	void						SetSpecularCoef(float fVal)			{ m_fSpecularCoef = fVal; }
-	void						SetSpecularColor(COLOR *pColor)		{ m_SpecularColor.Set(pColor); }
-	void						SetSpecularExp(float fVal)			{ m_fSpecularExp = fVal; }
-	void						SetTransparency(float fVal)			{ m_fTransparency = fVal; }
+    virtual void        Print();
+    virtual void        Refresh(int DeltaTime);
+    void                Set(Material *pMat);
+    void                SetAmbientCoef(float fVal)          { m_fAmbientCoef = fVal; }
+    void                SetDiffuseCoef(float fVal)          { m_fDiffuseCoef = fVal; }
+    void                SetDiffuseColor(COLOR32 *pColor)    { m_DiffuseColor.Set(pColor); }
+    void                SetRefractIndexEnv(float fVal)      { m_fRefractIndexEnv = fVal; }
+    void                SetRefractIndexObject(float fVal)   { m_fRefractIndexObject = fVal; }
+    void                SetSpecularCoef(float fVal)         { m_fSpecularCoef = fVal; }
+    void                SetSpecularColor(COLOR32 *pColor)   { m_SpecularColor.Set(pColor); }
+    void                SetSpecularExp(float fVal)          { m_fSpecularExp = fVal; }
+    void                SetTransparency(float fVal)         { m_fTransparency = fVal; }
 
 private:
-	void						Init();
+    void                Init();
 
-	COLOR						m_DiffuseColor;
-	COLOR						m_SpecularColor;
-	
-	float						m_fAmbientCoef;
-	float						m_fDiffuseCoef;
-	float						m_fRefractIndexEnv;
-	float						m_fRefractIndexObject;
-	float						m_fSpecularCoef;
-	float						m_fSpecularExp;
-	float						m_fTransparency;
+    COLOR32         m_DiffuseColor;
+    COLOR32         m_SpecularColor;
+
+    float           m_fAmbientCoef;
+    float           m_fDiffuseCoef;
+    float           m_fRefractIndexEnv;
+    float           m_fRefractIndexObject;
+    float           m_fSpecularCoef;
+    float           m_fSpecularExp;
+    float           m_fTransparency;
 };
 
 #endif

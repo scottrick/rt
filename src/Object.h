@@ -9,28 +9,29 @@ struct INTERSECTION;
 class Object : public Unknown
 {
 public:
-	Object()				{};
-	~Object()				{};
+    Object()            {};
+    ~Object()           {};
 
-	Material				GetMaterial()					{ return m_Material; }
-	virtual VECTOR3			GetNormal(INTERSECTION *pInter) = 0;
+    Material            GetMaterial()                           { return m_Material; }
+    virtual VECTOR3     GetNormal(INTERSECTION *pInter)         = 0;
 
-	virtual float			Intersects(RAY *pRay)			= 0; //return 0.0f if no intersection occurs!
-	virtual void			Print()							{ m_Material.Print(); }
-	virtual void			Refresh(int DeltaTime)			= 0;
+    virtual float       Intersects(RAY *pRay)                   = 0; //return 0.0f if no intersection occurs!
+    virtual void        Print()                                 { m_Material.Print(); }
+    virtual void        Refresh(int DeltaTime)                  = 0;
 
-	void					SetMaterial(Material *pMat)		{ m_Material.Set(pMat); }
+    void                SetMaterial(Material *pMat)             { m_Material.Set(pMat); }
 
 private:
-	Material				m_Material;
+    Material            m_Material;
 
 };
 
-struct INTERSECTION {
-	float	t;
-	Object	*object;
-	RAY		*ray;
-	//bool	bEntering;
+struct INTERSECTION
+{
+    float	t;
+    Object	*object;
+    RAY		*ray;
+    //bool	bEntering;
 };
 
 #endif

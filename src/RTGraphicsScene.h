@@ -14,8 +14,8 @@ class QPainter;
 class GraphicsView;
 class Scene;
 
-static const int SCENE_HEIGHT  = 80;
-static const int SCENE_WIDTH   = 60;
+static const int SCENE_HEIGHT  = 400;
+static const int SCENE_WIDTH   = 400;
 
 class RTGraphicsScene : public QGraphicsScene
 {

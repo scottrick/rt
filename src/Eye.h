@@ -11,16 +11,19 @@ public:
     ~Eye()          {}
 
     VECTOR3         *GetDirection()                 { return &m_vDirection; }
+    float           GetFoV() const                  { return m_fFoV; }
     VECTOR3         *GetPosition()                  { return &m_vPosition; }
+
+    bool            IsUpdateNeeded() const          { return m_bUpdateNeeded; }
 
     virtual void    Print();
 
     virtual void    Refresh(int DeltaTime);
 
-    void            SetAspectRatio(float newRatio)  { m_fAspectRatio = newRatio; }
-    void            SetDirection(VECTOR3 *pVec)     { m_vDirection.Set(pVec); }
-    void            SetFoV(float newFoV)            { m_fFoV = newFoV; }
-    void            SetPosition(VECTOR3 *pVec)      { m_vPosition.Set(pVec); }
+    void            SetDirection(VECTOR3 *pVec);
+    void            SetFoV(float newFoV);
+    void            SetPosition(VECTOR3 *pVec);
+    void            SetUpdateNeeded(bool bUpdateNeeded);
 
 private:
     void            Init();
@@ -28,8 +31,9 @@ private:
     VECTOR3         m_vDirection;
     VECTOR3         m_vPosition;
 
-    float           m_fAspectRatio;
     float           m_fFoV; //in degrees
+
+    bool            m_bUpdateNeeded;
 };
 
 #endif

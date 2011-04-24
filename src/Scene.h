@@ -22,7 +22,9 @@ public:
     void Add(const char *pFilename); //parse the given file and add its stuff to the scene
     void Clear(); //remove everything from the scene!
 
-    Eye             GetEye() const              { return m_Eye; }
+    INTERSECTION *  findIntersection(RAY *pRay);
+
+    Eye*            GetEye()    { return &m_Eye; }
 
     virtual void    Print();
     virtual void    Refresh(int DeltaTime);

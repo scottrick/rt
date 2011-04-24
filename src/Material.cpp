@@ -7,15 +7,15 @@ using namespace std;
 
 void Material::Init()
 {
-    m_DiffuseColor.Set(0.0f, 0.0f, 0.0f, 1.0f);
-    m_SpecularColor.Set(0.0f, 0.0f, 0.0f, 1.0f);
-    m_fAmbientCoef				= 0.0f;
-    m_fDiffuseCoef				= 0.0f;
-    m_fSpecularCoef				= 0.0f;
-    m_fSpecularExp				= 0.0f;
-    m_fTransparency				= 0.0f;
-    m_fRefractIndexEnv			= 0.0f;
-    m_fRefractIndexObject		= 0.0f;
+    m_DiffuseColor.Set(0, 0, 0, 255);
+    m_SpecularColor.Set(0, 0, 0, 255);
+    m_fAmbientCoef = 0.0f;
+    m_fDiffuseCoef = 0.0f;
+    m_fSpecularCoef = 0.0f;
+    m_fSpecularExp = 0.0f;
+    m_fTransparency = 0.0f;
+    m_fRefractIndexEnv = 0.0f;
+    m_fRefractIndexObject = 0.0f;
 }
 
 void Material::Print()

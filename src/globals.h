@@ -14,6 +14,36 @@ static	bool    USE_FAST_MATH               = true;
 
 static	float   InvSqrt(float x);
 
+struct COLOR32
+{
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+
+    void Print()
+    {
+        cout << "COLOR32 0x" << hex << this << dec << endl;
+        cout << " (" << (unsigned int)r << ", " << (unsigned int)g << ", " << (unsigned int)b << ", " << (unsigned int)a << ")" << endl;
+    }
+
+    void Set(COLOR32 *color)
+    {
+        r = color->r;
+        g = color->g;
+        b = color->b;
+        a = color->a;
+    }
+
+    void Set(unsigned char rr, unsigned char gg, unsigned char bb, unsigned char aa)
+    {
+        r = rr;
+        g = gg;
+        b = bb;
+        a = aa;
+    }
+};
+
 struct COLOR
 {
     float r;
@@ -183,6 +213,15 @@ struct RAY
 {
     VECTOR3 vStart;
     VECTOR3 vDirection;
+
+    void Print()
+    {
+        cout << "Ray 0x" << hex << this << dec << endl;
+        cout << " Start ";
+        vStart.Print();
+        cout << " Dir ";
+        vDirection.Print();
+    }
 
     VECTOR3 ValueWhenT(float fT)
     {
